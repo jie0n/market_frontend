@@ -298,6 +298,12 @@ a { color: inherit; text-decoration: none; }
   font-size: 18px;
   line-height: 1;
 }
+
 .previewRemove:hover {
   background: #f3f4f6;
 }
+
+.menu__item--danger {
+  color: #b91c1c;
+}
+
