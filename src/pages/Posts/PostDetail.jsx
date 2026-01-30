@@ -1,0 +1,103 @@
+import React from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { mockPosts } from "../../mock/posts";
+
+export default function PostDetail() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const post = mockPosts.find((p) => p.id === id);
+
+  function goChat(author) {
+    // 작성자 기준 채팅방 매칭(예시)
+    const roomId = author === "홍길동" ? "r1" : author === "김지은" ? "r2" : "r1";
+    navigate(`/chat/${roomId}`);
+  }
+
+  // ✅ 게시물 없을 때도 "목록 카드"는 별도로 보여주기
+  if (!post) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        {/* 상세 카드 */}
+        <section className="card">
+          <h1 className="title">게시물 상세</h1>
+          <p className="desc">해당 게시물을 찾을 수 없습니다.</p>
+        </section>
+
+        {/* 목록 카드 */}
+        <aside className="card">
+          <div className="panelHead">
+            <h2 className="panelTitle">게시물 목록</h2>
+            <Link className="panelLink" to="/posts">전체보기 →</Link>
+          </div>
+
+          <ul className="list">
+            {mockPosts.map((p) => (
+              <li key={p.id} className="list__item">
+                <Link to={`/posts/${p.id}`} className="list__link" title={p.title}>
+                  {p.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      {/* ✅ 1) 상세 내용 카드 */}
+      <section className="card">
+        <h1 className="title">{post.title}</h1>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 10 }}>
+          <span className="desc" style={{ margin: 0 }}>
+            작성자: <b>{post.author}</b>
+          </span>
+
+          <button className="btn btn--ghost" type="button" onClick={() => goChat(post.author)}>
+            1:1 채팅
+          </button>
+        </div>
+
+        <div style={{ marginTop: 14, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>
+          {post.content}
+        </div>
+      </section>
+
+      {/* ✅ 2) 게시물 목록 카드 (완전 분리된 박스) */}
+      <aside className="card">
+        <div className="panelHead">
+          <h2 className="panelTitle">게시물 목록</h2>
+          <Link className="panelLink" to="/posts">
+            전체보기 →
+          </Link>
+        </div>
+
+        <ul className="list">
+          {mockPosts.map((p) => {
+            const isCurrent = p.id === id;
+            return (
+              <li key={p.id} className="list__item">
+                <Link
+                  to={`/posts/${p.id}`}
+                  className="list__link"
+                  title={p.title}
+                  style={{
+                    fontWeight: isCurrent ? 900 : 600,
+                    background: isCurrent ? "#f3f4f6" : "#fafafa",
+                    borderColor: isCurrent ? "var(--border)" : "transparent",
+                  }}
+                >
+                  {p.title}
+                  {isCurrent ? " (현재 글)" : ""}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </aside>
+    </div>
+  );
+}
