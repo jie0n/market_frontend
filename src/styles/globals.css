@@ -307,3 +307,20 @@ a { color: inherit; text-decoration: none; }
   color: #b91c1c;
 }
 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.table th, .table td {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+.table th {
+  font-weight: 800;
+  background: #fafafa;
+}
+
+.chatHeader__actions { display: flex; gap: 8px; }

@@ -98,9 +98,24 @@ export default function ChatPage() {
       <section className="card chatMain">
         <div className="chatHeader">
           <div>
-            <div className="chatTitle">{activeRoom ? activeRoom.user : "채팅"}</div>
+            <div classNme="chatTitle">{activeRoom ? activeRoom.user : "채팅"}</div>
           </div>
-          <div />
+          
+          <div className="chatHeader__actions">
+            <button
+              className="btn btn--ghost"
+              type="button"
+              onClick={() =>
+                navigate(
+                  `/reports/new?type=chat&roomId=${activeRoomId}&target=${encodeURIComponent(
+                    activeRoom?.user || ""
+                  )}`
+                )
+              }
+            >
+              신고
+              </button>
+          </div>
         </div>
 
         <div className="chatBody">

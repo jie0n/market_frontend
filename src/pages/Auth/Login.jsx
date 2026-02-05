@@ -19,7 +19,7 @@ export default function Login() {
 
   return (
     <div className="card" style={{ maxWidth: 520, margin: "0 auto" }}>
-      <h1 className="title">로그인</h1>
+      <h1 className="title" style={{ marginBottom: 22 }}>로그인</h1>
       <form className="form" onSubmit={onSubmit}>
         <div className="field">
           <label className="label">이메일</label>

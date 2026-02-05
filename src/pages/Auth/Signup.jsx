@@ -18,7 +18,7 @@ export default function Signup() {
 
   return (
     <div className="card" style={{ maxWidth: 520, margin: "0 auto" }}>
-      <h1 className="title">회원가입</h1>
+      <h1 className="title" style={{ marginBottom: 22 }}>회원가입</h1>
 
       <form className="form" onSubmit={onSubmit}>
         <div className="field">

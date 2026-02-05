@@ -14,6 +14,10 @@ export default function PostDetail() {
     navigate(`/chat/${roomId}`);
   }
 
+  function goEdit() {
+    navigate(`/posts/${id}/edit`);
+  }
+
   // ✅ 게시물 없을 때도 "목록 카드"는 별도로 보여주기
   if (!post) {
     return (
@@ -49,9 +53,9 @@ export default function PostDetail() {
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       {/* ✅ 1) 상세 내용 카드 */}
       <section className="card">
-        <h1 className="title">{post.title}</h1>
+        <h1 className="title" style={{ marginBottom: 22 }}>{post.title}</h1>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 8, marginBottom: 18 }}>
           <span className="desc" style={{ margin: 0 }}>
             작성자: <b>{post.author}</b>
           </span>
@@ -59,9 +63,23 @@ export default function PostDetail() {
           <button className="btn btn--ghost" type="button" onClick={() => goChat(post.author)}>
             1:1 채팅
           </button>
+
+          <button
+              className="btn btn--ghost"
+              type="button"
+              onClick={() =>
+                navigate(`/reports/new?type=post&postId=${id}&author=${encodeURIComponent(post.author)}`)
+              }
+            >
+              신고
+          </button>
+
+          <button className="btn btn--ghost" type="button" onClick={goEdit}>
+            수정
+          </button>
         </div>
 
-        <div style={{ marginTop: 14, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>
+        <div style={{ marginTop: 8, whiteSpace: "pre-wrap", lineHeight: 1.7 }}>
           {post.content}
         </div>
       </section>

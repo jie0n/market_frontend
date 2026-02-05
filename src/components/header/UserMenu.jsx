@@ -34,6 +34,8 @@ export default function UserMenu() {
             <>
               <Link to="/mypage" className="menu__item" onClick={() => setOpen(false)}>마이페이지</Link>
               <Link to="/chat" className="menu__item" onClick={() => setOpen(false)}>1:1 채팅</Link>
+              <Link to="/reports" className="menu__item" onClick={() => setOpen(false)}>신고 게시판</Link>
+
               <button className="menu__item menu__item--danger" type="button" onClick={onLogout}>
                 로그아웃
               </button>
