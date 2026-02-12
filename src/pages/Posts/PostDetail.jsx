@@ -1,6 +1,8 @@
-import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { mockPosts } from "../../mock/posts";
+import SafeText from "../../components/security/SafeText";
+import WatermarkedImage from "../../components/security/WatermarkedImage";
+import React from "react";
 
 export default function PostDetail() {
   const { id } = useParams();
@@ -80,8 +82,27 @@ export default function PostDetail() {
         </div>
 
         <div style={{ marginTop: 8, whiteSpace: "pre-wrap", lineHeight: 1.7 }}>
-          {post.content}
+          <div className="postBody" style={{ lineHeight: 1.7 }}>
+            <SafeText text={post.content} />
+          </div>
         </div>
+
+        {/* ✅ 이미지(워터마크 데모) */}
+        <div>
+          <div
+            className="row"
+            style={{ justifyContent: "space-between", alignItems: "center" }}
+          >
+          </div>
+
+        <div style={{ marginTop: 10 }}>
+          <WatermarkedImage
+            src={post.imageUrl || "https://picsum.photos/900/560"}
+            alt="post"
+            watermarkText={`MARKET Post#${post.id} ${post.author}`}
+          />
+        </div>
+    </div>
       </section>
 
       {/* ✅ 2) 게시물 목록 카드 (완전 분리된 박스) */}
